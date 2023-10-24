@@ -3,7 +3,7 @@
 client side of was created using create-react-app
 Server side was created using node init and adding express
 
-## starting app
+# starting app
 ```
 cd client
 npm run start
@@ -14,7 +14,7 @@ npm run dev
 ```
 
 
-## Available Scripts
+# Available Scripts
 
 Client:
 ```
@@ -32,33 +32,48 @@ npm run test:watch - runs mocha tests in watch mode
 
 # initial setup
 
-### initialize client(react)
+## initialize client(React)
 ```
 cd client
 npm install
 npm run start
 ```
-### initialize server(node)
+## initialize server(Express)
 ```
 cd server
 npm install
 npm run dev
 ```
 
-### initialize database
-```
-brew install postgresql
-brew services start postgresql
-psql postgres
-CREATE ROLE me WITH LOGIN PASSWORD 'password';
-ALTER ROLE me CREATEDB;
-exit 
-psql -d postgres -U me
-CREATE DATABASE api;
-\c api
-```
+## initialize database(PostgreSQL)
+1. New PostgreSQL database
+    -
+    can be created using Docker or Homebrew
+    homebrew:
+    ```
+    brew install postgresql
+    brew services start postgresql
+    psql postgres
+    CREATE ROLE me WITH LOGIN PASSWORD 'password';
+    ALTER ROLE me CREATEDB;
+    exit 
+    psql -d postgres -U me
+    CREATE DATABASE api;
+    \c api
+    ```
+2. Already Existing PostgreSQL database
+    -
+    1. connect to database
+    2. create database:
+        ```
+        CREATE DATABASE api;
+        \c api
+        ```
 
-#### create table 
+
+
+
+### create table 
 ```
 CREATE TABLE recipes (
     recipe_id SERIAL PRIMARY KEY,
@@ -77,12 +92,12 @@ CREATE TABLE recipes (
 );
 ```
 
-#### insert data(optional)
+### insert data(optional)
 ```
 INSERT INTO recipes (title, instructions, ingredients, prep_time, cook_time, total_time, servings, difficulty, cuisine, category)
 VALUES (
     'Quick Scrambled Eggs',
-    '1. Beat the eggs in a bowl.\n2. Heat a non-stick skillet over medium heat.\n3. Add butter to the skillet and let it melt.\n4. Pour the beaten eggs into the skillet.\n5. Stir gently until the eggs are set but still slightly runny.\n6. Season with salt and pepper to taste.\n7. Serve hot.',
+    '1. Beat the eggs in a bowl. 2. cook',
     ARRAY['2 large eggs', '1 tbsp butter', 'Salt and pepper to taste'],
     'PT5M',  -- Prep Time: 5 minutes
     'PT5M',  -- Cook Time: 5 minutes
@@ -95,6 +110,7 @@ VALUES (
 ```
 
 #### view port whitch db is running on
+usefull for fixing port conflicts
 ```
 SELECT current_setting('listen_addresses') AS listen_addresses, current_setting('port') AS port;
 ```
