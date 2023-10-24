@@ -13,6 +13,14 @@
   align-items: center;
 
 }
+.filters{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+}
 .col{
   display: flex;
   flex-direction: column;
@@ -20,7 +28,10 @@
   align-items: center;
 
 }
-.rowmin{
+.ingredient_filter_card{
+  padding: 0px;
+  padding-left: 20px;
+  margin: 5px;
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -50,7 +61,6 @@
 .app__recipe{
   width: 25%;
   margin: 10px;
-  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 2px 2px 2px #ccc;
@@ -67,4 +77,19 @@
 }
 .p-1{
   padding: 10px;
+}
+.m-1{
+  margin: 10px !important;
+}
+.p-10{ 
+  padding: 100px;
+}
+.app__recipe__link{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: #222;
+  text-decoration: none !important;
 }

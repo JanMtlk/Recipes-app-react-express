@@ -59,7 +59,9 @@ function RecipeDetailScreen() {
   return (
     <div className="app">
        <CustomHeader />
-      {recipe === null || typeof recipe === "undefined" ? "Loading..." : (
+<div className="col p-10">
+
+{recipe === null || typeof recipe === "undefined" ? "Loading..." : (
         <div>
           <Button variant="contained"onClick={(e) => {
             e.preventDefault();
@@ -71,6 +73,12 @@ function RecipeDetailScreen() {
           }}><DeleteIcon/>
           </Button>
           <h2>{recipe?.title}</h2>
+          difficulty: {recipe?.difficulty}
+          <br />
+          id: {recipe?.recipe_id}
+          <br />
+          recipe created_at: {recipe?.created_at}
+          
           <p>{recipe?.description}</p>
           <ul>
             <h3>Ingredients:</h3>
@@ -85,6 +93,7 @@ function RecipeDetailScreen() {
             }
           </ol>
         </div>)}
+        </div>
     </div>
   );
 }

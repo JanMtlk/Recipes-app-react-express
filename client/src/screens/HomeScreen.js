@@ -6,7 +6,7 @@ import {
 import CustomHeader from "../components/CustomHeader";
 
 import Button from '@mui/material/Button';
-import { TextField } from "@mui/material";
+import { Card, CardHeader, TextField } from "@mui/material";
 
 function HomeScreen() {
     const [fetchedRecipes, setFetchedRecipes] = useState(null);
@@ -53,50 +53,64 @@ function HomeScreen() {
     const filteredRecipes = useMemo(() => {
         return filterRecipes(fetchedRecipes);
     }
-        , [ fetchedRecipes, filterRecipes]);
+        , [fetchedRecipes, filterRecipes]);
 
 
 
     return (
         <div className="app">
             <CustomHeader />
-            <section> 
-                
-                <TextField id="filled-basic"label="title" variant="filled" value={titleQuery} onChange={(e) => setTitleQuery(e.target.value)} />
-                <TextField id="filled-basic"label="ingredients" variant="filled"value={ingredientsField} onChange={(e) => setIngredientsField(e.target.value)} />
-                <Button variant="contained" onClick={(e) => {
-                    e.preventDefault();
-                    //add new ingredient to filter and because it is more intuitive then search it right away
-                    setIngredientsFilter([...ingredientsFilter, ingredientsField]);
-                    setIngredientsField("");
-                }}>add ingredient</Button>
-
-                Searching for: {titleQuery}
+            <section className="col">
                 <div className="row">
-                    {ingredientsFilter.map((ingredient) => (
-                        <div className="rowmin">
-                            <Button variant="text" onClick={(e) => {
-                                e.preventDefault();
-                                setIngredientsFilter(ingredientsFilter.filter((item) => item !== ingredient))
-                            }}>x</Button>
-                            <div>{ingredient}</div>
 
-                        </div>
-                    ))}
+                    <TextField id="filled-basic" label="Search by title..." variant="filled" value={titleQuery} onChange={(e) => setTitleQuery(e.target.value)} />
+                    <TextField id="filled-basic" label="search by ingredients..." variant="filled" value={ingredientsField} onChange={(e) => setIngredientsField(e.target.value)} />
+                    <Button variant="contained" onClick={(e) => {
+                        e.preventDefault();
+                        //add new ingredient to filter and because it is more intuitive then search it right away
+                        setIngredientsFilter([...ingredientsFilter, ingredientsField]);
+                        setIngredientsField("");
+                    }}>add ingredient</Button>
                 </div>
+                {ingredientsFilter.length === 0 ? "" :   <div className="row">
+                    Included ingredients:
+                        {ingredientsFilter.map((ingredient) => (
+                            <Card className="ingredient_filter_card">
+                               
+                                <div>{ingredient}</div>
+                                <Button variant="text" onClick={(e) => {
+                                    e.preventDefault();
+                                    setIngredientsFilter(ingredientsFilter.filter((item) => item !== ingredient))
+                                }}>x</Button>
+
+                            </Card>
+                        ))}
+                    </div>}
+                
+                <div className="row">
+
+                    
+                  
+                </div>
+
             </section>
             <div className="app_recipes_list">
                 {(filteredRecipes === null || typeof filteredRecipes === "undefined") ? "Loading..." : filteredRecipes.map(
                     (user) => (
-                        <NavLink
-                            to={`/recipe_detail/:id=${user.recipe_id}`} // 
-                            className="app__recipe"
-                            key={user.title}
-                        >
-                            <h2>{user.title}</h2>
-                            <div className="row"><p className="p-1">{user.difficulty}</p></div>
 
-                        </NavLink>
+                        <Card className="app__recipe">
+                            <NavLink
+                                to={`/recipe_detail/:id=${user.recipe_id}`}
+                             
+                                key={user.title}
+                                className="app__recipe__link"
+                            >
+
+                                <h2 >{user.title}</h2>
+                                <div className="row"><p className="p-1">{user.difficulty}</p></div>
+                            </NavLink>
+                        </Card>
+
 
                     )
 
